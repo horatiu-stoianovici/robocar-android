@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -13,7 +16,75 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Communications c = new Communications();
+        final Communications c = new Communications();
+
+        Button buttonLeft, buttonRight, buttonUp, buttonDown;
+
+        buttonLeft = (Button)findViewById(R.id.buttonLeft);
+        buttonRight = (Button)findViewById(R.id.buttonRight);
+        buttonUp = (Button)findViewById(R.id.buttonUp);
+        buttonDown = (Button)findViewById(R.id.buttonDown);
+
+        buttonLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        c.startLeft();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        c.stopLeft();
+                        break;
+                }
+
+                return false;
+            }
+        });
+
+        buttonRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        c.startRight();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        c.stopRight();
+                        break;
+                }
+                return false;
+            }
+        });
+
+        buttonUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        c.startForward();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        c.stopForward();
+                        break;
+                }
+                return false;
+            }
+        });
+
+        buttonDown.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        c.startBackward();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        c.stopBackward();
+                        break;
+                }
+                return false;
+            }
+        });
 
         c.startBackward();
         c.stopBackward();
